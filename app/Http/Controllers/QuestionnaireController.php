@@ -9,8 +9,11 @@ class QuestionnaireController extends Controller
 {
     public function index()
     {
-        $questionnaires = Questionnaire::where('user_id', auth()->id())->get();
-        return view('questionnaires.index', compact('questionnaires'));
+        $user = auth()->user();
+    
+        // Récupérer les événements auxquels l'utilisateur a participé
+        $events = $user->events()->with('questionnaires')->get();
+        return view('questionnaires.index', compact('events'));
     }
 
     public function create()

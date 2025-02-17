@@ -6,9 +6,12 @@ use App\Filament\Resources\ResponseResource\Pages;
 use App\Filament\Resources\ResponseResource\RelationManagers;
 use App\Models\Response;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -21,18 +24,20 @@ class ResponseResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Select::make('question_id')->relationship('question', 'question_text')->required(),
+            Select::make('user_id')->relationship('user', 'name')->required(),
+            Textarea::make('answer')->label('Réponse')->required(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                //
-            ])
+        return $table->columns([
+            TextColumn::make('question.question_text')->label('Question'),
+            TextColumn::make('user.name')->label('Participant'),
+            TextColumn::make('answer')->label('Réponse'),
+        ])
             ->filters([
                 //
             ])

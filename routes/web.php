@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/questionnaires/{id}/fill', [ResponseController::class, 'fill'])->name('questionnaires.fill');
     Route::post('/questionnaires/{id}/submit', [ResponseController::class, 'submit'])->name('questionnaires.submit');
+
     Route::get('/questionnaires', [QuestionnaireController::class, 'index'])->name('questionnaires.index');
     Route::get('/questionnaires/create', [QuestionnaireController::class, 'create'])->name('questionnaires.create');
     Route::post('/questionnaires', [QuestionnaireController::class, 'store'])->name('questionnaires.store');

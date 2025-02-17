@@ -11,23 +11,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+
 class ResponseController extends Controller
 {
-    public function fill(Questionnaire $questionnaire)
-    {
-        return view('responses.fill', compact('questionnaire'));
-    }
+    public function fill($id)
+{
+    $questionnaire = Questionnaire::with('questions')->findOrFail($id);
+    return view('responses.fill', compact('questionnaire'));
+}
 
-    public function submit(Request $request, Questionnaire $questionnaire)
+    public function submit(Request $request, $id)
     {
+        $questionnaire = Questionnaire::findOrFail($id);
+
         foreach ($request->responses as $questionId => $answer) {
-            Response::create([
-                'question_id' => $questionId,
-                'user_id' => auth()->id(),
-                'answer' => $answer,
-            ]);
+            Response::updateOrCreate(
+                ['question_id' => $questionId, 'user_id' => auth()->id()],
+                ['answer' => $answer]
+            );
         }
 
-        return redirect()->route('questionnaires.index')->with('success', 'Réponses enregistrées.');
+        return redirect()->route('questionnaires.index')->with('success', 'Vos réponses ont été enregistrées.');
     }
+
 }
