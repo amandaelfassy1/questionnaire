@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Models\User; // Import du modèle User
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -53,6 +54,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->userPolicy(fn (User $user) => in_array($user->email, ['admin@gmail.com'])); // 🔥 Seul cet email est autorisé
     }
 }
