@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -53,10 +54,6 @@ class User extends Authenticatable
     }
     public function canAccessPanel(Panel $panel): bool
     {
-        if ($panel->getId() === 'admin') {
-            return str_ends_with($this->email, '@gmail.com') && $this->hasVerifiedEmail();
-        }
-
-        return true;
+        return in_array($this->email, ['admin@gmail.com']); // Autorise uniquement cet email
     }
 }

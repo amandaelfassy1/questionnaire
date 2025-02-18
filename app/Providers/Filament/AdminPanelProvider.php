@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace App\Providers\Filament;
 
 use Filament\Http\Middleware\Authenticate;
