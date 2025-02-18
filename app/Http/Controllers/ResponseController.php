@@ -15,10 +15,10 @@ use Illuminate\View\View;
 class ResponseController extends Controller
 {
     public function fill($id)
-{
-    $questionnaire = Questionnaire::with('questions')->findOrFail($id);
-    return view('responses.fill', compact('questionnaire'));
-}
+    {
+        $questionnaire = Questionnaire::with('questions')->findOrFail($id);
+        return view('responses.fill', compact('questionnaire'));
+    }
 
     public function submit(Request $request, $id)
     {

@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->foreignId('questionnaire_id')->constrained()->onDelete('cascade');
         $table->string('question_text');
-        $table->enum('type', ['boolean', 'multiple_choice', 'text']);
+        $table->enum('type', ['boolean', 'multiple_choice', 'text', 'radio'])->default('text');
         $table->json('options')->nullable(); // Pour les choix multiples
         $table->timestamps();
     });

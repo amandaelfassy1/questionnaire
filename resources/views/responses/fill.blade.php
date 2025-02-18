@@ -32,17 +32,40 @@
                                 </label>
                             </div>
 
-                        @elseif($question->type == 'multiple_choice')
-                            <div class="mt-2 space-y-2">
-                                @foreach(json_decode($question->options, true) as $option)
-                                    <label class="block">
-                                        <input type="radio" name="responses[{{ $question->id }}]" value="{{ $option }}" 
-                                               class="form-radio text-blue-600" required>
-                                        <span class="ml-2">{{ $option }}</span>
-                                    </label>
-                                @endforeach
+                            @elseif($question->type == 'boolean')
+                            <div class="mt-2 space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="responses[{{ $question->id }}]" value="1" 
+                                           class="form-radio text-blue-600" required>
+                                    <span class="ml-2">Oui</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="responses[{{ $question->id }}]" value="0" 
+                                           class="form-radio text-red-600" required>
+                                    <span class="ml-2">Non</span>
+                                </label>
                             </div>
+                        
+                        @elseif($question->type == 'multiple_choice' || $question->type == 'radio')
+                            @php
+                                $options = json_decode($question->options, true) ?? [];
+                            @endphp
+                        
+                            @if(!empty($options))
+                                <div class="mt-2 space-y-2">
+                                    @foreach($options as $option)
+                                        <label class="block">
+                                            <input type="radio" name="responses[{{ $question->id }}]" value="{{ $option }}" 
+                                                   class="form-radio text-blue-600" required>
+                                            <span class="ml-2">{{ $option }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            @else
+                                <p class="text-gray-500">⚠️ Aucune option disponible pour cette question.</p>
+                            @endif
                         @endif
+                        
                     </div>
                 @endforeach
 

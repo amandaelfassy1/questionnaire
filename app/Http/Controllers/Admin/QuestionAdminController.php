@@ -29,13 +29,25 @@ class QuestionAdminController extends Controller
         $request->validate([
             'question_text' => 'required|string|max:255',
             'questionnaire_id' => 'required|exists:questionnaires,id',
-            'type' => 'required|in:boolean,multiple_choice,text', // 🔥 Correction ici !
+            'type' => 'required|in:boolean,multiple_choice,text',
+            'options' => 'nullable|string', // <-- Correction ici (options sous forme de texte)
         ]);
     
-        Question::create($request->all());
+        // Transformer les options en JSON si c'est un choix multiple
+        $options = ($request->type === 'multiple_choice' && !empty($request->options))
+            ? json_encode(array_map('trim', explode(',', $request->options)))
+            : null;
+    
+        Question::create([
+            'questionnaire_id' => $request->questionnaire_id,
+            'question_text' => $request->question_text,
+            'type' => $request->type,
+            'options' => $options,
+        ]);
     
         return redirect()->route('admin.questions.index')->with('success', 'Question créée avec succès.');
     }
+    
     
     public function update(Request $request, $id)
     {
