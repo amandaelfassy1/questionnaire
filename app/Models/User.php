@@ -25,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -56,5 +57,14 @@ class User extends Authenticatable
     public function canAccessPanel(Panel $panel): bool
     {
         return $panel->getId() === 'admin' && $this->email === 'admin@gmail.com';
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasRole($roleName)
+    {
+        return $this->role && $this->role->role_name === $roleName;
     }
 }

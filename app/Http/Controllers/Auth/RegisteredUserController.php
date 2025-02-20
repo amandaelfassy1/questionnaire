@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -27,6 +28,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -34,17 +36,22 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+    
+        // Récupérer le rôle par défaut (ex: "participant")
+        $defaultRole = Role::where('role_name', 'participant')->first();
+    
+        // Création de l'utilisateur avec un rôle par défaut
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => $defaultRole ? $defaultRole->id : null, // Assigner un rôle ou NULL si inexistant
         ]);
-
+    
         event(new Registered($user));
-
         Auth::login($user);
-
+    
         return redirect(route('questionnaires.index', absolute: false));
     }
+    
 }

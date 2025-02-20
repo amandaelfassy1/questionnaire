@@ -329,6 +329,12 @@ return [
         'url'  => 'admin/responses',
         'icon' => 'fas fa-reply',
     ],
+    // Lien vers Responses
+    [
+        'text' => 'Utilisateurs',
+        'url'  => 'admin/users',
+        'icon' => 'fas fa-user',
+    ],
 ],
 
 

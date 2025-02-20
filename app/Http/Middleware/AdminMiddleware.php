@@ -7,12 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (!Auth::check() || Auth::user()->email !== 'test@gmail.com') {
-            abort(403);
+        if (!Auth::check() || Auth::user()->role->role_name !== $role) {
+            abort(403, 'Accès interdit.');
         }
-
         return $next($request);
     }
 }

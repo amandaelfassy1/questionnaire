@@ -10,14 +10,16 @@ use App\Http\Controllers\Admin\QuestionAdminController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuestionnaireAdminController;
 use App\Http\Controllers\Admin\ResponseAdminController;
+use App\Http\Controllers\Admin\UserAdminController;
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->group(function () {
 
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
     Route::resource('events', EventController::class);
+    Route::resource('users', UserAdminController::class);
     Route::get('/questionnaires', [QuestionnaireAdminController::class, 'index'])->name('admin.questionnaires.index');
     Route::get('/questionnaires/create', [QuestionnaireAdminController::class, 'create'])->name('admin.questionnaires.create');
     Route::post('/questionnaires', [QuestionnaireAdminController::class, 'store'])->name('admin.questionnaires.store');
