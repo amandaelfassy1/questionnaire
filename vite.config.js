@@ -8,5 +8,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-   
+    server: {
+        hmr: {
+            protocol: 'wss' 
+        }
+    },
 });
