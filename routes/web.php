@@ -48,7 +48,7 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [QuestionnaireController::class, 'index'])->name('questionnaires.index');
+    Route::get('/questionnaires', [QuestionnaireController::class, 'index'])->name('questionnaires.index');
     Route::get('/questionnaires/{id}/fill', [ResponseController::class, 'fill'])->name('questionnaires.fill');
     Route::post('/questionnaires/{id}/submit', [ResponseController::class, 'submit'])->name('questionnaires.submit');
     Route::get('/questionnaires/{id}', [QuestionnaireController::class, 'show'])->name('questionnaires.show');
