@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://questionnaire-app-amanda-e6d3fecfeca6.herokuapp.com/'),
+    'url' => env('APP_URL', 'http://questionnaire-app-amanda-e6d3fecfeca6.herokuapp.com/'),
 
     /*
     |--------------------------------------------------------------------------
