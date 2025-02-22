@@ -2,15 +2,13 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
-    server: process.env.APP_ENV === 'local' ? { // 🔥 Condition pour local
+    server: {
+        host: 'localhost',
+        port: 5173, // ✅ Port par défaut de Vite
+        strictPort: true, 
+        https: false, // ✅ Désactive HTTPS en local pour éviter les erreurs SSL
         hmr: {
-            host: 'localhost',
-            protocol: 'ws', // ✅ WebSocket fonctionne bien en local (HTTP)
-        }
-    } : {
-        https: true, // ✅ Active HTTPS en production
-        hmr: {
-            protocol: 'wss' // ✅ WebSocket sécurisé pour Heroku
+            protocol: 'ws', // ✅ Utilisation de WebSocket en HTTP
         }
     },
     plugins: [
