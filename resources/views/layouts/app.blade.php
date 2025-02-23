@@ -6,7 +6,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <style type="text/css">
+            .hidden {display:none;}
+          </style>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -20,7 +22,12 @@
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @endif
 
-    
+        <script type="text/javascript">
+            $('html').addClass('hidden');
+            $(document).ready(function() {    // EDIT: From Adam Zerner's comment below: Rather use load: $(window).on('load', function () {...});
+              $('html').show();  // EDIT: Can also use $('html').removeClass('hidden'); 
+             });  
+           </script>
     
     </head>
     <body class="font-sans antialiased">
