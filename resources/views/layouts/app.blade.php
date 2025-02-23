@@ -14,9 +14,8 @@
             @php
                 $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
             @endphp
-            <link rel="preload" href="{{ asset('build/' . $manifest['resources/css/app.css']['file']) }}" as="style">
-            <link rel="stylesheet" href="{{ asset('build/' . $manifest['resources/css/app.css']['file']) }}">
-            <script src="{{ asset('build/' . $manifest['resources/js/app.js']['file']) }}" defer></script>
+            <link href="/build/assets/app-DZiTm8wo.css" rel="stylesheet">
+            <script src="/build/assets/app-CbEvcXly.js" defer></script>
         @else
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @endif
