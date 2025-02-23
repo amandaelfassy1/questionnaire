@@ -14,13 +14,22 @@
             $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
         @endphp
         <link href="{{ asset('build/assets/app-DZiTm8wo.css') }}" type="text/css" rel="stylesheet">
-        <script src="{{ asset('build/assets/app-FnTIh7I5.js') }}" defer></script>
+        <script src="{{ asset('build/assets/app-FnTIh7I5.js') }}" type="javascript" defer></script>
     @else
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
     
 
-       
+    <style type="text/css">
+        .hidden {display:none;}
+      </style>
+      <script type="text/javascript" src="/scripts/jquery.js"></script>
+      <script type="text/javascript">
+        $('html').addClass('hidden');
+        $(document).ready(function() {    // EDIT: From Adam Zerner's comment below: Rather use load: $(window).on('load', function () {...});
+          $('html').show();  // EDIT: Can also use $('html').removeClass('hidden'); 
+         });  
+       </script>
     
     </head>
     <body class="font-sans antialiased">
