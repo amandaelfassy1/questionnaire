@@ -6,29 +6,22 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-        
+
+        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         @if (app()->environment('production'))
-        @php
-            $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
-        @endphp
-        <link href="{{ asset('build/assets/app-DZiTm8wo.css') }}" type="text/css" rel="stylesheet">
-        <script src="{{ asset('build/assets/app-FnTIh7I5.js') }}" type="javascript" defer></script>
-    @else
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
-    
+            @php
+                $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
+            @endphp
+            <link rel="preload" href="{{ asset('build/' . $manifest['resources/css/app.css']['file']) }}" as="style">
+            <link rel="stylesheet" href="{{ asset('build/' . $manifest['resources/css/app.css']['file']) }}">
+            <script src="{{ asset('build/' . $manifest['resources/js/app.js']['file']) }}" defer></script>
+        @else
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @endif
 
-    <style type="text/css">
-        .hidden {display:none;}
-      </style>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>      <script type="text/javascript">
-        $('html').addClass('hidden');
-        $(document).ready(function() {    // EDIT: From Adam Zerner's comment below: Rather use load: $(window).on('load', function () {...});
-          $('html').show();  // EDIT: Can also use $('html').removeClass('hidden'); 
-         });  
-       </script>
+    
     
     </head>
     <body class="font-sans antialiased">
