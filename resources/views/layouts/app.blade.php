@@ -14,7 +14,7 @@
             $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
         @endphp
         <link href="{{ asset('build/assets/app-DZiTm8wo.css') }}" type="text/css" rel="stylesheet">
-        <script src="{{ asset('build/assets/app-CbEvcXly.js') }}" defer></script>
+        <script src="{{ asset('build/assets/app-FnTIh7I5.js') }}" defer></script>
     @else
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
