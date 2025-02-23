@@ -23,8 +23,7 @@
     <style type="text/css">
         .hidden {display:none;}
       </style>
-      <script type="text/javascript" src="/scripts/jquery.js"></script>
-      <script type="text/javascript">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>      <script type="text/javascript">
         $('html').addClass('hidden');
         $(document).ready(function() {    // EDIT: From Adam Zerner's comment below: Rather use load: $(window).on('load', function () {...});
           $('html').show();  // EDIT: Can also use $('html').removeClass('hidden'); 
