@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -43,8 +44,9 @@ class UserAdminController extends Controller
 
     public function edit(User $user)
     {
+        $events = Event::all(); // Récupère tous les événements
         $roles = Role::all();
-        return view('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles', 'events'));
     }
 
     public function update(Request $request, User $user)
@@ -52,7 +54,8 @@ class UserAdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
-            'role_id' => 'required|exists:roles,id'
+            'role_id' => 'required|exists:roles,id',
+            'events' => 'array'
         ]);
 
         $user->update([
@@ -60,6 +63,7 @@ class UserAdminController extends Controller
             'email' => $request->email,
             'role_id' => $request->role_id
         ]);
+        $user->events()->sync($request->events);
 
         return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour.');
     }

@@ -29,7 +29,17 @@
                 @endforeach
             </select>
         </div>
-
+        <div class="form-group">
+            <label>Assigner des événements :</label>
+            <select name="events[]" class="form-control select2" multiple="multiple" data-placeholder="Sélectionnez les événements">
+                @foreach($events as $event)
+                    <option value="{{ $event->id }}" {{ in_array($event->id, $user->events->pluck('id')->toArray()) ? 'selected' : '' }}>
+                        {{ $event->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
     </form>
 @endsection
