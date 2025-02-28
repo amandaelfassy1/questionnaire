@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class EventAdminController extends Controller
 {
     public function index()
     {
@@ -34,12 +34,13 @@ class EventController extends Controller
             'end_time' => $request->end_time,
         ]);
     
-        return redirect()->route('events.index')->with('success', 'Événement créé avec succès.');
+        return redirect()->route('admin.events.index')->with('success', 'Événement créé avec succès.');
     }
     
 
-    public function edit(Event $event)
+    public function edit($id)
     {
+        $event = Event::findOrFail($id);
         return view('admin.events.edit', compact('event'));
     }
 
@@ -48,17 +49,18 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'date' => 'required|date',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after_or_equal:start_time',
         ]);
 
         $event->update($request->all());
 
-        return redirect()->route('events.index')->with('success', 'Événement mis à jour.');
+        return redirect()->route('admin.events.index')->with('success', 'Événement mis à jour.');
     }
 
     public function destroy(Event $event)
     {
         $event->delete();
-        return redirect()->route('events.index')->with('success', 'Événement supprimé.');
+        return redirect()->route('admin.events.index')->with('success', 'Événement supprimé.');
     }
 }

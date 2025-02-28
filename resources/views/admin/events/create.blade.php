@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <form action="{{ route('events.store') }}" method="POST">
+    <form action="{{ route('admin.events.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label>Nom de l'événement</label>

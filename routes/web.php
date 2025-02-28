@@ -5,7 +5,7 @@ use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\ResponseController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\EventAdminController;
 use App\Http\Controllers\Admin\QuestionAdminController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuestionnaireAdminController;
@@ -18,7 +18,14 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->group(function 
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    Route::resource('events', EventController::class);
+    Route::get('/events', [EventAdminController::class, 'index'])->name('admin.events.index');
+    Route::get('/events/create', [EventAdminController::class, 'create'])->name('admin.events.create');
+    Route::post('/events', [EventAdminController::class, 'store'])->name('admin.events.store');
+    Route::get('/events/{id}/edit', [EventAdminController::class, 'edit'])->name('admin.events.edit');
+    Route::put('/events/{event}', [EventAdminController::class, 'update'])->name('admin.events.update');
+    Route::delete('/events/{id}', [EventAdminController::class, 'destroy'])->name('admin.events.destroy');
+    
+    
     Route::resource('users', UserAdminController::class);
     Route::get('/questionnaires', [QuestionnaireAdminController::class, 'index'])->name('admin.questionnaires.index');
     Route::get('/questionnaires/create', [QuestionnaireAdminController::class, 'create'])->name('admin.questionnaires.create');
