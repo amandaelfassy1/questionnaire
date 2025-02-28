@@ -69,23 +69,23 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             <div class="text-center">
                 <img src="{{asset('img/team1.png')}}" class="rounded-full mx-auto mb-4" alt="Team Member">
-                <h3 class="text-lg font-semibold text-gray-900">Jean Dupont</h3>
-                <p class="text-gray-600">Architecte principal</p>
+                <h3 class="text-lg font-semibold text-gray-900">Jean Pierre</h3>
+                <p class="text-gray-600">Chef de projets</p>
             </div>
             <div class="text-center">
                 <img src="{{asset('img/team2.png')}}" class="rounded-full mx-auto mb-4" alt="Team Member">
-                <h3 class="text-lg font-semibold text-gray-900">Marie Curie</h3>
-                <p class="text-gray-600">Spécialiste en design</p>
+                <h3 class="text-lg font-semibold text-gray-900">Alice</h3>
+                <p class="text-gray-600">Product Owner</p>
             </div>
             <div class="text-center">
                 <img src="{{asset('img/team3.png')}}" class="rounded-full mx-auto mb-4" alt="Team Member">
-                <h3 class="text-lg font-semibold text-gray-900">Paul Martin</h3>
-                <p class="text-gray-600">Consultant en planification</p>
+                <h3 class="text-lg font-semibold text-gray-900">Gabriel</h3>
+                <p class="text-gray-600">Développeur Backend</p>
             </div>
             <div class="text-center">
                 <img src="{{asset('img/team4.png')}}" class="rounded-full mx-auto mb-4" alt="Team Member">
-                <h3 class="text-lg font-semibold text-gray-900">Alice Dubois</h3>
-                <p class="text-gray-600">Directrice de projet</p>
+                <h3 class="text-lg font-semibold text-gray-900">Claire</h3>
+                <p class="text-gray-600">Développeur Frontend</p>
             </div>
         </div>
     </section>
