@@ -12,8 +12,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('questionnaires', function (Blueprint $table) {
-            $table->enum('type', ['organisateur', 'formateur', 'participant'])->after('event_id');
+            $table->string('type')->default('participant'); // Ajoute une valeur par défaut
         });
+        
     }
     
     public function down()
