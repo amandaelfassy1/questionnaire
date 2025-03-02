@@ -30,12 +30,12 @@
                                 <label class="flex items-center bg-white p-3 rounded-lg shadow-md cursor-pointer w-full">
                                     <input type="radio" name="responses[{{ $question->id }}]" value="1" 
                                            class="form-radio text-blue-500" required>
-                                    <span class="ml-2 text-gray-900 font-semibold">✅ Oui</span>
+                                    <span class="ml-2 text-gray-900 font-semibold">✅ Vrai</span>
                                 </label>
                                 <label class="flex items-center bg-white p-3 rounded-lg shadow-md cursor-pointer w-full">
                                     <input type="radio" name="responses[{{ $question->id }}]" value="0" 
                                            class="form-radio text-red-500" required>
-                                    <span class="ml-2 text-gray-900 font-semibold">❌ Non</span>
+                                    <span class="ml-2 text-gray-900 font-semibold">❌ Faux</span>
                                 </label>
                             </div>
 
