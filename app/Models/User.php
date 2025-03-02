@@ -58,13 +58,21 @@ class User extends Authenticatable
     {
         return $panel->getId() === 'admin' && $this->email === 'admin@gmail.com';
     }
+    public function getRoleNameAttribute()
+    {
+        return $this->role ? $this->role->role_name : null;
+    }
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
+
     public function hasRole($roleName)
     {
         return $this->role && $this->role->role_name === $roleName;
     }
+
+
+
 }

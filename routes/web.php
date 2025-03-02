@@ -6,6 +6,7 @@ use App\Http\Controllers\ResponseController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\EventAdminController;
+use App\Http\Controllers\Admin\EventUserAdminController;
 use App\Http\Controllers\Admin\QuestionAdminController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuestionnaireAdminController;
@@ -25,13 +26,16 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->group(function 
     Route::put('/events/{event}', [EventAdminController::class, 'update'])->name('admin.events.update');
     Route::delete('/events/{id}', [EventAdminController::class, 'destroy'])->name('admin.events.destroy');
     
+    Route::get('/event_users', [EventUserAdminController::class, 'index'])->name('admin.event_users.index');
+    Route::get('/event_users/{id}/edit', [EventUserAdminController::class, 'edit'])->name('admin.event_users.edit');
+    Route::put('/event_users/{id}', [EventUserAdminController::class, 'update'])->name('admin.event_users.update');
     
     Route::resource('users', UserAdminController::class);
     Route::get('/questionnaires', [QuestionnaireAdminController::class, 'index'])->name('admin.questionnaires.index');
     Route::get('/questionnaires/create', [QuestionnaireAdminController::class, 'create'])->name('admin.questionnaires.create');
     Route::post('/questionnaires', [QuestionnaireAdminController::class, 'store'])->name('admin.questionnaires.store');
     Route::get('/questionnaires/{id}/edit', [QuestionnaireAdminController::class, 'edit'])->name('admin.questionnaires.edit');
-    Route::put('/questionnaires/{id}', [QuestionnaireAdminController::class, 'update'])->name('admin.questionnaires.update');
+    Route::put('/questionnaires/{questionnaire}', [QuestionnaireAdminController::class, 'update'])->name('admin.questionnaires.update');
     Route::delete('/questionnaires/{id}', [QuestionnaireAdminController::class, 'destroy'])->name('admin.questionnaires.destroy');
     
     Route::get('/questions', [QuestionAdminController::class, 'index'])->name('admin.questions.index');

@@ -33,8 +33,9 @@ class QuestionnaireAdminController extends Controller
         return redirect()->route('admin.questionnaires.index')->with('success', 'Questionnaire créé avec succès.');
     }
 
-    public function edit(Questionnaire $questionnaire)
+    public function edit($id)
     {
+        $questionnaire = Questionnaire::findOrFail($id);
         $events = Event::all();
         return view('admin.questionnaires.edit', compact('questionnaire', 'events'));
     }
@@ -45,16 +46,18 @@ class QuestionnaireAdminController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'event_id' => 'required|exists:events,id',
+            'type' => 'required|in:organisateur,formateur,participant',
         ]);
-
+    
         $questionnaire->update($request->all());
-
-        return redirect()->route('questionnaires.index')->with('success', 'Questionnaire mis à jour.');
+    
+        return redirect()->route('admin.questionnaires.index')->with('success', 'Questionnaire mis à jour.');
     }
-
+    
     public function destroy(Questionnaire $questionnaire)
     {
         $questionnaire->delete();
-        return redirect()->route('questionnaires.index')->with('success', 'Questionnaire supprimé.');
+        return redirect()->route('admin.questionnaires.index')->with('success', 'Questionnaire supprimé.');
     }
+    
 }

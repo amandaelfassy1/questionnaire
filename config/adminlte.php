@@ -331,6 +331,13 @@ return [
     ],
     // Lien vers Responses
     [
+        'text' => 'Evénement utilisateur',
+        'url'  => 'admin/event_users',
+        'icon' => 'fas fa-group',
+    ],
+
+    // Lien vers Responses
+    [
         'text' => 'Utilisateurs',
         'url'  => 'admin/users',
         'icon' => 'fas fa-user',

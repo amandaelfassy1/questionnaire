@@ -9,9 +9,13 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next, $role)
     {
-        if (!Auth::check() || Auth::user()->role->role_name !== $role) {
+        $user = Auth::user();
+
+        // Vérifier si l'utilisateur est authentifié et possède le bon rôle
+        if (!$user || $user->role_name !== $role) {
             abort(403, 'Accès interdit.');
         }
+
         return $next($request);
     }
 }
