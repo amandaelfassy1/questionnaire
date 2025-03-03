@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Questionnaire extends Model
 {
+    use HasFactory;
+    
     protected $fillable = ['title', 'description', 'event_id', 'type'];
 
     public function event()
