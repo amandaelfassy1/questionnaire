@@ -5,6 +5,11 @@
         <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
             📋 Les événements auxquels j'ai participé
         </h2>
+        @if(session('success'))
+        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-800 rounded-lg shadow text-center font-semibold">
+            {{ session('success') }}
+        </div>
+    @endif
 
         @if($events->isEmpty())
             <div class="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg text-center shadow-md">
@@ -26,13 +31,19 @@
                             <h4 class="text-lg font-medium text-gray-800 mt-4">📑 Questionnaires associés :</h4>
                             <ul class="mt-2 space-y-2">
                                 @foreach($event->questionnaires as $questionnaire)
-                                    <li>
+                                <li>
+                                    @if(!in_array($questionnaire->id, $answeredQuestionnaireIds))
                                         <a href="{{ route('questionnaires.fill', $questionnaire->id) }}" 
-                                           class="flex items-center bg-gray-800 hover:bg-primary-300 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 transition-all transform hover:scale-105">
+                                        class="flex items-center bg-gray-800 hover:bg-primary-300 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 transition-all transform hover:scale-105">
                                             📝 <span class="ml-2">Remplir : {{ $questionnaire->title }}</span>
                                         </a>
-                                    </li>
-                                @endforeach
+                                    @else
+                                        <p class="text-green-600 font-semibold">✅ Vous avez déjà répondu</p>
+                                    @endif
+                                  
+                                </li>
+                            @endforeach
+                            
                             </ul>
                         @endif
                     </div>

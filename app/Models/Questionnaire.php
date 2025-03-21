@@ -20,5 +20,14 @@ class Questionnaire extends Model
     {
         return $this->hasMany(Question::class);
     }
+    public function responses()
+{
+    return $this->hasMany(Response::class);
+}
+public function hasUserResponded($userId)
+{
+    return $this->responses()->where('user_id', $userId)->exists();
+}
+
 }
 

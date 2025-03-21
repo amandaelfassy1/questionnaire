@@ -1,6 +1,8 @@
 @include('layouts.navigation')
 @extends('layouts.app')
 @section('content')
+
+
     <div class="container mx-auto py-10">
         <!-- ✅ Bloc principal -->
         <div class="bg-white shadow-xl rounded-lg p-8 mx-auto">

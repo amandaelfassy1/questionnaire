@@ -9,16 +9,26 @@ use Illuminate\Http\Request;
 class QuestionnaireController extends Controller
 {
     public function index()
-{
-    $user = auth()->user();
-
-    // Récupérer tous les événements auxquels l'utilisateur a participé
-    $events = $user->events()->with(['questionnaires' => function ($query) use ($user) {
-        $query->where('type', $user->role_name);
-    }])->get();
-
-    return view('questionnaires.index', compact('events'));
-}
+    {
+        $userId = auth()->id();
+    
+        // Récupérer les événements liés à l'utilisateur
+        $events = Event::with('questionnaires')
+            ->whereHas('users', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->get();
+    
+        // Trouver les IDs des questionnaires déjà remplis par l'utilisateur
+        $answeredQuestionnaireIds = \App\Models\Response::where('user_id', $userId)
+            ->whereHas('question') // assure que la relation existe
+            ->with('question')
+            ->get()
+            ->pluck('question.questionnaire_id')
+            ->unique()
+            ->toArray();
+    
+        return view('questionnaires.index', compact('events', 'answeredQuestionnaireIds'));
+    }
 
 
     public function show(Questionnaire $questionnaire)
